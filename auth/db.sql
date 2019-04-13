@@ -6,5 +6,5 @@ CREATE TABLE u_tb (
 	u_ea VARCHAR(30) NOT NULL,
 	u_nm VARCHAR(30) NOT NULL,
 	u_pw VARCHAR(30) NOT NULL,
-	PRIMARY KEY (u_id, u_nm)
+	PRIMARY KEY (u_nm)
 );
