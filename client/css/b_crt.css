@@ -1,0 +1,28 @@
+body {
+	background: lightblue;
+}
+.dropzone {
+	width: 300px;
+	height: 300px;
+	border: 2px dashed #ccc;
+	color: #aaa;
+	line-height: 300px;
+	text-align: center;
+}
+.dropzone.dragover {
+	border-color: #000;
+	color: #000;
+}
+.b_cnf {
+	width: 100%;
+	height: auto;
+	float: left;
+	color: green;
+}
+#b_cnt {
+	width: 100%;
+	height: auto;
+	color: green;
+	background: #ccc;
+	border: 1px solid red;
+}

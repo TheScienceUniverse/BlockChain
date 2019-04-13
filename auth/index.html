@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html"; charset=UTF-8 />
+	<title>Home Page</title>
+	<style>
+		#s_auth {
+			width: 75%;
+			height: 80vh;
+			margin: auto;
+			background-color: lightblue;
+			border: 3px solid blue;
+		}
+		.u_auth {
+			width: 25%;
+			height: auto;
+			margin: 5%;
+			float: left;
+			background-color: lightgreen;
+			border: 1px solid red;
+		}
+		input {
+			width: 80%;
+		}
+	</style>
+</head>
+
+<body>
+	<center>
+		<h1>Authentication System!</h1>
+	</center>
+	<div id="s_auth"><center>
+		<div id="s_up" class="u_auth"><center>
+		<form id="f1" name="u_uf" method="post" action="signup.php">
+			<h3>Not a Member?<br />Sign-Up</h3>
+			<b>Full Name:</b><br />
+			<input type="text" name="u_rn"><br />
+			<b>Date of Birth:</b><br />
+			<input type="date" name="u_db"><br />
+			<b>Mobile Number:</b><br />
+			<input type="tel" name="u_pn"><br />
+			<b>eMail Address:</b><br />
+			<input type="email" name="u_ea"><br />
+			<b>Choose UserName:</b><br />
+			<input type="text" name="u_nm"><br />
+			<b>Choose PassWord:</b><br />
+			<input type="password" name="u_pw"><br />
+			<b>Confirm Password:</b><br />
+			<input type="password" name="u_cpw"><br /><br />
+		</form>
+		<button type="submit" form="f1" value="Submit">Sign-Up</button>
+		</center></div>
+		<div id="s_in" class="u_auth"><center>
+		<form id="f2" name="u_uf" method="post" action="signin.php">
+			<h3>Already a Member?<br />Sign-In</h3>
+			<b>UserName:</b><br />
+			<input type="text" name="u_nm"><br />
+			<b>PassWord:</b><br />
+			<input type="password" name="u_pw"><br /><br />
+		</form>
+		<button type="submit" form="f2" value="Submit">Sign-In</button>
+		</center></div>
+	</center></div>
+</body>
+</html>

@@ -1,0 +1,4 @@
+Openning MySQL from terminal:
+	# mysql -u root -p [ENTER]
+Pushing query into MySQL from terminal:
+	# mysql -u root -p auth < db.sql [ENTER]
