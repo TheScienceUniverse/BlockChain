@@ -13,7 +13,7 @@ No Extra Software or Package are required, except the following,
 
 	1. Electronic Device: Computer or SmartPhone
 	2. Internet: Active Internet Connection
-	3. Browser: Chrome, Firefox, Edge, Safari, etc. 
+	3. Browser: Chrome, Firefox, Edge, Safari, etc.
 
 ---
 
