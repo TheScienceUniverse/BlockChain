@@ -1,4 +1,4 @@
-﻿# BlockChain
+# BlockChain
 Basic Implementation of "The Truth Machine" Technology
 
 **Version 1.0.0**
@@ -9,20 +9,11 @@ This files explains how to write Software for BlockChain
 
 ## Setting up the Environment or System
 
-### Install Update
-```
-$ sudo apt-get update [ENTER]
-$ sudo apt-get upgrade [ENTER]
-```
-### Google-Chrome (https://www.google.com/chrome/):
-```
-Direct Download
-		OR
-$ wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb [ENTER]
-$ sudo dpkg -i google-chrome-stable_current_amd64.deb [ENTER]
-$ google-chrome [ENTER]
-$ cat /etc/apt/sources.list.d/google-chrome.list [ENTER]
-```
+No Extra Software or Package are required, except the following,
+
+	1. Electronic Device: Computer or SmartPhone
+	2. Internet: Active Internet Connection
+	3. Browser: Chrome, Firefox, Edge, Safari, etc. 
 
 ---
 
