@@ -1,11 +1,11 @@
 <?php
 session_start();
-if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-	$u_nm = $_SESSION['username'];
-} else {
+if (!isset($_SESSION['username'])) {
 	echo "Redirecting to Sign Page";
 	echo "<script> location.href='./auth/'; </script>";
 	exit();
+} else {
+	$u_nm = $_SESSION['username'];
 }
 ?>
 
