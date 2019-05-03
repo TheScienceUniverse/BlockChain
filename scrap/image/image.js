@@ -22,3 +22,12 @@ function modifyImage(iD, iW, iH) {
 	// document.body.appendChild(cnv);
 	return cnv.toDataURL("image/jpeg");
 }
+
+function addComment(iD, cmnt) {
+	var s8 = base64_deCode(iD);
+	console.log(typeof s8, iD.substr(0, 256));
+	//p = s64.search(/ffd8/gi);
+	console.log(s8);
+	//console.log("Tag Found at: " + p);
+	return iD;
+}

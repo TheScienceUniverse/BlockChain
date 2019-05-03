@@ -10,7 +10,7 @@ function init() {
 					reader.onload = function (ev) {
 						// f_c = ev.target.result;
 						f_c = reader.result;
-						console.log(f_c.length, f_c.substring(0, 64));
+						// console.log(f_c.length, f_c.substring(0, 64));
 						var canvas = document.getElementById('canvas');
 						var context = canvas.getContext('2d');
 						var image = new Image();
@@ -23,10 +23,11 @@ function init() {
 
 						image.onload = function() {
 							let iW = image.width, iH = image.height;
-							console.log(f_c.slice(0, 64), iW, iH);
-							//let iData = modifyImage(f_c, iW, iH);
-							//console.log(iData);
-							
+							//console.log(f_c.slice(0, 64), iW, iH);
+							let iData = modifyImage(f_c, iW, iH);
+							//console.log(iData.length);
+							iData = addComment(iData, "Hello, World!");
+							/*
 							console.log(f_c.length);
 							let max = (iW > iH) ? iW : iH;
 							iW = (256 * iW) / max;
@@ -37,6 +38,7 @@ function init() {
 							context.drawImage(image, iX, iY, iW, iH);
 							let iData = canvas.toDataURL('image/jpeg');
 							console.log(iData.length);
+							*/
 						}
 						image.src = f_c;
 					}
