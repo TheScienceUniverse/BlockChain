@@ -22,10 +22,25 @@ No Extra Software or Package are required, except the following,
 Blockchain Structure
 
 ~~~~
-Block:= { b_id:= <Index>, b_ts:= <Timestamp>, b_ch:= <Current Hash>, b_ph:= <Previous Hash>, b_dt:= <Data> }
+Chain := [
+	{
+		b_un:= <UserName>,
+		b_fn:= <File Name>,
+		b_ch:= <Current Hash> 
+	}, 
+	{
+		...
+	},
+	...
+]
 
-Chain:= Block[i]
-=> Chain:= [{ b_un:= <UserName>, b_fn:= <File Name>, b_ch:= <Current Hash> }, {...}, ...]
+Block := {
+	b_id:= <Index>,
+	b_ts:= <Timestamp>,
+	b_ch:= <Current Hash>,
+	b_ph:= <Previous Hash>,
+	b_dt:= <Data>
+}
 ~~~~
 
 ---
