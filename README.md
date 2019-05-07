@@ -37,8 +37,8 @@ Chain := [
 Block := {
 	b_id:= <Index>,
 	b_ts:= <Timestamp>,
-	b_ch:= <Current Hash>,
 	b_ph:= <Previous Hash>,
+	b_ch:= <Current Hash>,
 	b_dt:= <Data>
 }
 ~~~~
