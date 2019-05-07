@@ -31,6 +31,9 @@ function cN10ToS2(n10, nb) {
 }
 // Convert Binary String to Hexadecimal String (binary string, number of bits)
 function cS2ToS16(s2, nb) {
+	if(s2 == "") {
+		return s2;
+	}
 	var s16 = parseInt(s2, 2).toString(16);
 	nb -= s16.length;
 	for (var i = 0; i < nb; i++) {
@@ -39,47 +42,87 @@ function cS2ToS16(s2, nb) {
 	return s16;
 }
 
-function base64_enCode(str) {
-	//return str;
-}
-
-function base64_deCode(str) {
-	var r = "";
-	var i, c;
-	for (i = str.length - 1; i >= 0; i--) {
-		c = str.charAt(i);
-		if (isType_base64(c) == -1) {
+function base64_deCode(s6) {
+	var s8 = "";
+	if(s6 == "") {
+		return s6;
+	}
+	var i, j, c;
+	for (i = s6.length - 1; i >= 0; i--) {
+		c = s6.charAt(i);
+		if (isType_base64(c) == -1 && c != "=") {
 			break;
 		}
 	}
-	str = str.slice(i + 1, str.length);
-	console.log(str.length);
-
-	var x = "", nh = 0, nb = 0, a = "", b = "";
-	for (i = 0; i < str.length; i++) {
-		c = str.charAt(i);
-		r += cN10ToS2(isType_base64(c), 6);
-		nb += 6;
-		if (nb > 7) {
-			a = r.substr(0, nh);
-			x = r.substr(nh, 8);
-			b = r.slice(nh + 8, r.length);
-			x = cS2ToS16(x, 2);
-			nh += 2, nb -= 8;
-			r = a + x + b;
+	s6 = s6.slice(i + 1, s6.length);
+	var buff = "", a = "", b = "";
+	for (i = 0; i < s6.length - 4; i += 4) {
+		for (j = 0; j < 4; j++) {
+			c = s6.charAt(i + j);
+			buff += cN10ToS2(isType_base64(c), 6);
 		}
-		//console.log(i, nh, nb, a, x, b);
+		s8 += cS2ToS16(buff, 6);
+		buff = "";
 	}
-	console.log(nh, nb);
-	a = r.substr(0, nh);
-	x = r.substr(nh, nb);
-	x = cS2ToS16(x, 2);
-	nh += 2, nb = 0;
-	r = a + x;
-	console.log(r.length);
-	return r;
+	let z = 0;
+	for(j = 3; j >= 0; j--) {
+		if(s6.charAt(i + j) == "=") {
+			++z;
+		} else {
+			break;
+		}
+	}
+	z = 3 - z;
+	for(j = 0; j < 4; j++) {
+		c = s6.charAt(i + j);
+		if(c == "=") {
+			break;
+		}
+		buff += cN10ToS2(isType_base64(c), 6);
+	}
+	buff = buff.slice(0, z * 8);
+	s8 += cS2ToS16(buff, z * 2);
+	return s8;
 }
 
-/* var str = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAEAAQADASIAAhEBA";
+
+function base64_enCode(s8) {
+	var s6 = "";
+	var i, j, x, n;
+	for (i = 0; i < s8.length - 6; i += 6) {
+		x = s8.substr(i, 6);
+		x = parseInt(x, 16).toString(2);
+		n = 24 - x.length;
+		for (j = 0; j < n; j++) {
+			x = "0" + x;
+		}
+		s6 += X[parseInt(x.substr(0, 6), 2)] + X[parseInt(x.substr(6, 6), 2)] + X[parseInt(x.substr(12, 6), 2)] + X[parseInt(x.substr(18, 6), 2)];
+	}
+	x = s8.substr(i, 6);
+	n = 4 * x.length;
+	x = parseInt(x, 16).toString(2);
+	j = n - x.length;
+	for (i = 0; i < j; i++) {
+		x = "0" + x;
+	}
+	j = Math.floor(n / 6);
+	if (n % 6 > 0) {
+		j += 1;
+	}
+	for (i = 0; i < 6 * j - n; i++) {
+		x += "0";
+	}
+	for (i = 0; i < x.length; i += 6) {
+		s6 += X[parseInt(x.substr(i, 6), 2)];
+	}
+	for (i = 0; i < 4 - j; i++) {
+		s6 += "=";
+	}
+	return s6;
+}
+
+/*
+var str = "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCAEAAQADASIAAhEBA";
 r = base64_deCode(str).substr(0, 256);
-console.log(r.search(/ffd8/gi)); */
+console.log(r.search(/ffd8/gi));
+*/

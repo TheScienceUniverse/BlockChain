@@ -13,9 +13,9 @@ function init() {
 			btn_cnf.addEventListener('click', function(ev) {
 				if (confirm("Confirm This Image!")) {
 					var imgData = canvas.toDataURL("image/jpeg");
-					console.log(imgData.slice(0, 128), imgData.length);
+					console.log(imgData.slice(0, 256), imgData.length);
 					imgData = modifyImage(imgData, 320, 240);
-					console.log(imgData.slice(0, 128), imgData.length);
+					console.log(imgData.slice(0, 256), imgData.length);
 
 					document.getElementById('snap').disabled = true;
 					btn_cnf.disabled = true;
