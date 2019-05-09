@@ -1,0 +1,31 @@
+Block
+	Id
+	Timestamp
+	Data
+	Prev hash
+	Nonce
+
+
+
+As we are implementing in Java, there are publicly functioning classes along with a class containing main function.
+
+The classes we have are:
+	Block
+	Transaction
+	String Utility
+	Main
+
+For containing the hashes we are using List datatype in Java. Before adding any block we are checking 3 things, that are:
+
+Timestamp: The time that it has been created
+Previous Hash: parent for current block
+Nonce: Consensus mechanism
+
+In the transaction class we have,
+	Source Name (Hash): transaction from
+	Destination Name (Hash): transaction to
+	Sum: 
+
+From main, we are
+	creating transactions: calling Transaction class
+	visiting transactions: receiving hashes
