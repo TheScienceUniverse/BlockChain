@@ -54,4 +54,4 @@ Block := {
 
 ## License & Copyright
 
-© SS
+© The Science Universe
