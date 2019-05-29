@@ -1,0 +1,28 @@
+\chapter{Background}
+\label{Ch2}
+\bigskip
+As we all know that in India the politics and the social media is a big thing for people to consider as an important part of life. But the problem is that some social media users does think of exploiting with the content either by downloading the video or recording on screen and uploading it to the social media platforms. Those new videos might be very sensitive and controversial and that becomes viral.
+\par What is needed is an digital verification system based on cryptographic proof instead of trust,
+allowing any two willing parties to transact directly with each other the video files related information without the need for a trusted third party. Transactions that are computationally impractical to reverse would protect sellers from fraud, and routine escrow mechanisms could easily be implemented to protect buyers. In this paper, we propose a solution to the double-spending problem using a peer-to-peer distributed timestamp server to generate computational proof of the chronological order of transactions. The system is secure as long as honest nodes collectively control more CPU power than any cooperating group of attacker nodes.
+
+The process of image integrity checking is old job and many algorithms have been made. The following is the overview of them.
+\begin{enumerate}
+\item Store the real images in some database. Match the testing image with the existing one bit by bit.
+\item Like in previous case, store it and check the new one's hash with the existing one's hash.
+\item Searching the image in different databases using object detection and context similarity.
+\item Every digital image is created in an electronic device which is having some unique property or signature in the world. The softwares that has created the image are designed in such a way that they put the digital signature in the metadata field of the image, let's say EXIF data for JPEG images. Any software that knows the byte signatures can detect the random image is original or not by checking the signature and named context that lies inside of the image file.
+\item By checking the image context with reality or possiblity, some images can be checked.
+\item An expert or hacker not only seeks for the context or visual similarity, but an expert knows that secret figures (WaterMarking) secret messages (Steganography) can be embedded in the image file, because the main image is a 2d matrix of intensity values (list of integers for BnW, RGBA, CMYK, or other) at different pixel positions.
+\item The modern approach is to use deep neural network that learns and tries to detect image integrity in about 90\% efficiency and accuracy.
+\item Image Forensics uses about all of the previous ones.
+\end{enumerate}
+
+Related Works:
+\begin{enumerate}
+\item There are plenty of image storing and searching by image in the websites. In the list [\href{https://images.google.com/}, \href{https://www.yandex.com/images/}] they use the image searching by name, context.
+\item Some of them uses object detection [\href{https://images.google.com/}, \href{https://www.imageidentify.com/}]
+\item Some website programs use reverse image search like [\href{https://images.google.com/}, \href{https://tineye.com/}]
+\item There are plenty of softwares like the photo eding softwares itself like Photoshop, GNU Image Manipulation Program, and other editors.
+\item In ~\cite{img_cnn} they used CNN for image comparing and many other that can be mentioned for well known face recognition problem.
+\item In ~\cite{adam_fabian} they used a mechanism for video integrity analysis.
+\end{enumerate}

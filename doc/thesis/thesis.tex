@@ -1,0 +1,85 @@
+\documentclass[a4paper, 12pt, twoside]{report}
+
+\usepackage[top=2.5cm, bottom=3cm, left=3cm, right=2cm]{geometry}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage[bitstream-charter]{mathdesign}
+\usepackage[pdftex]{graphicx}
+\usepackage{fixltx2e}
+\usepackage{afterpage}
+\usepackage[acronym,nomain]{glossaries}
+\usepackage{latexsym}
+\usepackage{times}
+\usepackage{amsmath}
+\usepackage{subfigure}
+\usepackage{multirow}
+\usepackage{rotating}
+\usepackage[table]{xcolor}
+\usepackage[acronym,nomain]{glossaries}
+\usepackage{setspace}
+\usepackage[nottoc]{tocbibind}
+\usepackage[toc, page]{appendix}
+\usepackage{setspace}
+\usepackage{xcolor}
+\usepackage{natbib}
+
+\usepackage{color}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,	% make the links colored
+	linkcolor=blue,		% color TOC links in blue
+	urlcolor=red,		% color URLs in red
+	linktoc=all		% 'all' will create links for everything in the TOC
+}
+
+\newcommand{\q}[1]{``#1''}
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+\newcommand{\scDiaeresis}[1]{\"{#1}}
+
+\newenvironment{dedication}
+{
+	\clearpage		% we want a new page
+	\thispagestyle{empty}	% no header and footer
+	\vspace*{\stretch{1}}	% some space at the top
+	\itshape		% the text is in italics
+	\centering		% flush to the right margin
+}
+{
+	\par			% end the paragraph
+	\vspace{\stretch{3}}	% space at bottom is three times that at the top
+	\clearpage		% finish off the page
+}
+\newtheorem{theorem}{Theorem}
+\newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma}
+\newtheorem{note}{Note}
+\makeglossaries
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\begin{document}
+
+\input{./doc_src/title.tex}
+\input{./doc_src/dedication.tex}
+\input{./doc_src/certificate.tex}
+\input{./doc_src/declaration.tex}
+\input{./doc_src/acknowledgments.tex}
+
+%\singlespacing
+\pagebreak \tableofcontents
+\pagebreak \listoffigures
+\input{./doc_src/abstract.tex}
+% \afterpage{\null\newpage}
+
+\input{./doc_src/introduction.tex}
+\input{./doc_src/background.tex}
+%\input{./doc_src/details.tex}
+\input{./doc_src/proposal.tex}
+\input{./doc_src/implementation.tex}
+\input{./doc_src/conclusion.tex}
+\input{./doc_src/bibliography.tex}
+
+\end{document}

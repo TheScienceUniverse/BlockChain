@@ -1,0 +1,43 @@
+\begin{thebibliography}{1}
+
+\bibitem{img_cnn}
+Srikar Appalaraju and Vineet Chaoji.
+\newblock Image similarity using deep cnn and curriculum learning.
+
+\bibitem{adam_fabian}
+Adam~Hemlin Billstr\scDiaeresis{o}m and Fabian Huss.
+\newblock Video integrity through blockchain technology.
+\newblock 2017.
+
+\bibitem{the_truth_machine}
+Michaeel~J. Casey and Paul Vigna.
+\newblock {\em The Truth Machine: The Blockchain and the Future of Everything}.
+\newblock HarperCollins, 2018.
+
+\bibitem{paxos_made_easy}
+Leslie Lamport.
+\newblock Paxos made simple.
+\newblock 2001.
+
+\bibitem{paxos_made_practical}
+David Mazieres.
+\newblock Paxos made practical.
+
+\bibitem{nakamoto2008bitcoin}
+Satoshi Nakamoto.
+\newblock Bitcoin: A peer-to-peer electronic cash system.
+\newblock 2008.
+
+\bibitem{raft_extd}
+Diego Ongaro and John Ousterhout.
+\newblock In search of an understandable consensus algorithm (extended
+  version).
+\newblock 2014.
+
+\bibitem{blockchain_wiki}
+Wikipedia.
+\newblock Blockchain.
+\newblock \url{https://en.wikipedia.org/wiki/Blockchain}, Oct 2014.
+\newblock Accessed on 2018-12-01.
+
+\end{thebibliography}

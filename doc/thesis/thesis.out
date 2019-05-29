@@ -1,0 +1,28 @@
+\BOOKMARK [0][-]{chapter*.5}{List of Figures}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 2
+\BOOKMARK [1][-]{section.1.1}{Scope of Discussion}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.2}{Methodological Approach}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.3}{Thesis Contribution}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.4}{Roadmap of the Thesis}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.5}{BlockChain}{chapter.1}% 7
+\BOOKMARK [2][-]{subsection.1.5.1}{Peer-to-Peer Network}{section.1.5}% 8
+\BOOKMARK [2][-]{subsection.1.5.2}{Transactions}{section.1.5}% 9
+\BOOKMARK [2][-]{subsection.1.5.3}{Public Ledger}{section.1.5}% 10
+\BOOKMARK [2][-]{subsection.1.5.4}{Chain of Blocks}{section.1.5}% 11
+\BOOKMARK [2][-]{subsection.1.5.5}{Timestamp}{section.1.5}% 12
+\BOOKMARK [2][-]{subsection.1.5.6}{Hash}{section.1.5}% 13
+\BOOKMARK [2][-]{subsection.1.5.7}{Merkle Root Hash}{section.1.5}% 14
+\BOOKMARK [2][-]{subsection.1.5.8}{Previous Hash}{section.1.5}% 15
+\BOOKMARK [2][-]{subsection.1.5.9}{Nonce}{section.1.5}% 16
+\BOOKMARK [2][-]{subsection.1.5.10}{Consensus Mechanism}{section.1.5}% 17
+\BOOKMARK [2][-]{subsection.1.5.11}{Applications of BCTs}{section.1.5}% 18
+\BOOKMARK [2][-]{subsection.1.5.12}{Security and Integrity in BCTs}{section.1.5}% 19
+\BOOKMARK [0][-]{chapter.2}{Background}{}% 20
+\BOOKMARK [0][-]{chapter.3}{Proposal}{}% 21
+\BOOKMARK [1][-]{section.3.1}{Workflow}{chapter.3}% 22
+\BOOKMARK [1][-]{section.3.2}{System Design}{chapter.3}% 23
+\BOOKMARK [2][-]{subsection.3.2.1}{Consensus mechanism}{section.3.2}% 24
+\BOOKMARK [0][-]{chapter.4}{Implementation}{}% 25
+\BOOKMARK [0][-]{chapter.5}{Conclusion and Further Work}{}% 26
+\BOOKMARK [1][-]{subsubsection.5.0.0.1}{Further Work}{chapter.5}% 27
+\BOOKMARK [0][-]{chapter*.7}{Bibliography}{}% 28
