@@ -1,0 +1,36 @@
+\begin{tikzpicture}[node distance=2cm]
+\node (start) [startstop] {Start};
+\node (in1) [io, right of=start, xshift=2cm] {GUB};
+\node (pro1) [process, below of=in1,yshift=0.2cm] {Extract Metadata};
+\node (dec1) [decision, below of=pro1, yshift=-0.2cm] {SF};
+\node (pro2a) [process, below of=dec1, yshift=-0.2cm] {Process Signature};
+\node (pro2b) [process, right of=dec1, xshift=3cm] {Generate Hash};
+\node (out1) [process, below of=pro2a] {MCMOT};
+\node (check2) [decision,below of=out1,yshift=-0.1cm]{IMF};
+\node (ghash) [process, below of=check2,yshift =-0.1cm] {Genrate Hash};
+\node (mhash) [process, below of=ghash,yshift = -0.1cm]{Match Hash};
+\node (ismhash) [decision, below of=mhash, yshift=-0.1cm]{AE};
+%\node (fmatchY) [process, left of=ismhash, xshift = -0.1cm] {YES}
+%\node (fmatchN) [process, right of=ismhash, yshift = -0.1cm] {NO}
+\node (stop) [startstop, left of=ismhash,xshift= -2cm] {Stop};
+\node (m_all_hash) [process, below of=pro2b,yshift=-0.1cm] {MIATIAB};
+\node (found2) [decision,below of=m_all_hash,yshift=-0.1cm]{IF};
+\node (yes2) [process, below of=found2,yshift =-0.1cm]{Yes};
+\node (no2) [process,right of=found2,xshift =2cm]{No};
+
+\draw [arrow] (start) -- (in1);
+\draw [arrow] (in1) -- (pro1);
+\draw [arrow] (pro1) -- (dec1);
+\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro2a);
+\draw [arrow] (dec1) -- node[anchor=south] {no} (pro2b);
+\draw [arrow] (pro2a) -- (out1);
+\draw [arrow] (out1) -- (check2);
+\draw [arrow] (check2) -- (ghash);
+\draw [arrow] (ghash) -- (mhash);
+\draw [arrow] (mhash) -- (ismhash);
+\draw [arrow] (ismhash) -- (stop);
+\draw [arrow] (pro2b) -- (m_all_hash);
+\draw[arrow] (m_all_hash) -- (found2);
+\draw [arrow] (found2) -- (yes2);
+\draw [arrow] (found2) -- (no2);
+\end{tikzpicture}

@@ -1,0 +1,44 @@
+\subsection{Introduction}
+RSA (inventors: Rivest-Shamir-Adleman) belongs to PKCS (public key cryptosystem) where a pair of keys are required, one to encrypt another to decrypt the encrypted one. Encryption means changing a message to another using such a popular rule using some secret value (that no one but the person who is encrypting knows) no one can understand. In case of PKCS it is asymmetric cryptographic algorithm means one key is kept secret (private key) and another one is sent to everyone (public key) for decryption. The keys are long enough to make the adversary break both the keys.
+
+\subsection{Property}
+The security of RSA depends on the strengths of two separate functions. The RSA cryptosystem is most popular public-key cryptosystem strength of which is based on the practical difficulty of factoring the very large numbers.
+
+\begin{itemize}
+\item \textbf{Encryption Function:} It is considered as a one-way function of converting plaintext into ciphertext and it can be reversed only with the knowledge of private key d.
+\item \textbf{Key Generation:} The difficulty of determining a private key from an RSA public key is equivalent to factoring the modulus n. An attacker thus cannot use knowledge of an RSA public key to determine an RSA private key unless he can factor n. It is also a one way function, going from p \& q values to modulus n is easy but reverse is not possible.
+\end{itemize}
+
+If either of these two functions are proved non one-way, then RSA will be broken. In fact, if a technique for factoring efficiently is developed then RSA will no longer be safe.
+
+The strength of RSA encryption drastically goes down against attacks if the number p and q are not large primes and (or) chosen public key e is a small number.
+
+\subsection{Algorithm}
+\begin{enumerate}
+\item Choose two different large random prime numbers $p$ and $q$
+\item Calculate Maximum range of considered numbers: $$ n = p \times q $$
+\item Calculate Euler's totient or Carmichael's totient (number of $+(ve)$ coprimes that are less than the given numbers): $$ \phi(n) = (p - 1) \times (q - 1) $$
+\item Choose a random number in the range $[2, \phi(n))$ that is co-prime with both $n$ and $\phi(n)$; two numbers $a$ and $b$ are are co-prime means they have no common factor \textit{i.e.} $$ gcd(a, b) = 1 $$
+\item Compute $d$ to satisfy the congruence relation
+$$ d \times e \equiv 1 \mod \phi(n) $$
+or $$ d \times e = 1 + k \times \phi(n) $$
+or $$ d = \frac{1 + k \times \phi(n)}{e} $$
+\item Private Key \{$d, n$\} is kept secret to decrypt the encrypted message after receiving from others and Public Key \{$e, n$\} is sent to everyone in the network to encrypt the encrypted message sent to the person who shared the public key.
+\item Sender side encryption:
+$$ c = m ^ e \mod n $$
+\item Reciever side decryption:
+$$ m = c ^ d \mod n $$
+\item Afterwards they changed $\phi(n)$ to $\lambda(n)$ where,
+$$ \lambda(n) = lcm(p - 1, q - 1) $$
+
+\end{enumerate}
+
+\subsection{Application}
+Suppose Alice uses Bob's public key to send him an encrypted message. In the message, she can claim to be Alice but Bob has no way of verifying that the message was actually from Alice since anyone can use Bob's public key to send him encrypted messages. So, in order to verify the origin of a message, RSA can also be used to sign a message.
+
+Suppose Alice wishes to send a signed message to Bob. She produces a hash value of the message, raises it to the power of d mod n (just like when decrypting a message), and attaches it as a \q(signature) to the message. When Bob receives the signed message, he raises the signature to the power of e mod n (just like encrypting a message), and compares the resulting hash value with the message's actual hash value. If the two agree, he knows that the author of the message was in possession of Alice's secret key, and that the message has not been tampered with since.
+
+Note that secure padding schemes such as RSA-PSS are as essential for the security of message signing as they are for message encryption, and that the same key should never be used for both encryption and signing purposes.
+
+\subsection{Citing}
+There is a nice description in wikipedia ~\cite{wiki_rsa} and ~\cite{geeks4geeks_rsa}. The real paper ~\cite{rsa_rsa} and the paper ~\cite{milanov_rsa} helps making the code ourselves.

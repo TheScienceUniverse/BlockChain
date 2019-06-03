@@ -1,0 +1,21 @@
+\begin{tikzpicture}[]
+\node (root) [process] {H\_r = hash(H\_0 + H\_1)};
+\node (child1) [process, below of=root, xshift=-4cm, yshift=-2cm]{H\_0 = hash(H\_0-0 + H\_0-1)};
+\node (child2) [process, below of=root, xshift=4cm, yshift=-2cm]{H\_1 = hash(H\_1-0 + H\_1-1)};
+\node (child3) [process, below of=child1, xshift=-2cm, yshift=-2cm]{hash(TxD\_0)};
+\node (child4) [process, below of=child1, xshift=2cm, yshift=-2cm]{hash(TxD\_1)};
+\node (child5) [process, below of=child2, xshift=-2cm, yshift=-2cm]{hash(TxD\_2)};
+\node (child6) [process, below of=child2, xshift=2cm, yshift=-2cm]{hash(TxD\_3)};
+
+\node (txd0) [process, below of=child3, yshift=-2cm] {TxD\_0};
+\node (txd1) [process, below of=child4, yshift=-2cm] {TxD\_1};
+\node (txd2) [process, below of=child5, yshift=-2cm] {TxD\_2};
+\node (txd3) [process, below of=child6, yshift=-2cm] {TxD\_3};
+
+\draw [arrow] (child1) -- (root);
+\draw [arrow] (child2) -- (root);
+\draw [arrow] (child3) -- (child1);
+\draw [arrow] (child4) -- (child1);
+\draw [arrow] (child5) -- (child2);
+\draw [arrow] (child6) -- (child2);
+\end{tikzpicture}

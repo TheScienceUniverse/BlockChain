@@ -1,0 +1,120 @@
+\chapter{Background}
+\label{ch:2}
+\bigskip
+As we all know that in India the politics and the social media is a big thing for people to consider as an important part of life. But the problem is that some social media users does think of exploiting with the content either by downloading the image or video or recording on screen and uploading it to the social media platforms. Those new images might be very sensitive and controversial and that becomes viral and put bad impact on the society.
+
+The integrity of data has become more and more important. Security breaches that have leaked passwords and user emails are commonplace and regularly appear in the news. When a system is hacked, the first issue that usually comes to mind is the compromise of confidentiality, specifically what confidential information is now in the hands of the adversary.
+Another aspect, which is getting increasingly important, is to know the integrity of data, has anything been changed contextually in order to address the higher level question: \q{Can we trust that this data is the actual data?}.
+The need to verify the integrity of the data varies between different organizations. For example, in health care, incorrect information could be life threatening, while in industries such as finance in authentic data could be associated with great cost. Social media platforms are presenting images on their platform with only a very low (almost nothing) level of verification, often next to paid content and advertising. Companies paying for distribution of content and advertising have an inherent interest to know that their content is being displayed reliably and in the case of advertisements that the content displayed next to their content is reliable, \textit{i.e.}, that it has not been compromised.
+This thesis will investigate the possibility of verifying the integrity of image content using blockchains. The resulting system should be capable of being implemented on various platforms, such as social media platforms.
+
+This chapter introduces the reader to all the relevant background knowledge needed to grasp all of this thesis.
+Section \ref{sec:image} details what an image is generated and how it can be decoded.
+In Section \ref{sec:blockchain} describes the intricacies of the main underlying concepts that comprises a blockchain.
+The Section \ref{sec:mlearning} is a little introductory part of the new emarging technology Machine Learning where computers have programmed in such a way that they seems they are learning and adapting with the changes of the environment. We introduced it because we are gonna use this to compare images using their contexts.
+Section \ref{sec:security} talks about the security of our system with regards to device to device communication.
+Section \ref{sec:client} details the client framework and what components \& Application Programming Interfaces (APIs) will be used to create the prototype mobile or computer client.
+Section \ref{sec:server} explains the front end development done for the web server, focusing mainly on the necessary JavaScript development.
+Section \ref{sec:prevWorks} discusses related projects that have been done
+both in academia and in the industry.
+Lastly, Section \ref{sec:summary} summarizes the background information and lays a theoretical foundation for this thesis.
+
+\section{Image}
+\label{sec:image}
+Image can be described what we see at a particular instance of time, as we can sense that we are in a 4 dimentional video space 3 D's for space (height, width, depth) and 1 D for time. Images that are captured in the digital camera (like an eye) by burning a integrated circuit chip portion called memory can be stored in different file formats for future use.
+
+Image file formats are standardized means of organizing and storing digital images. Image files are composed of digital data in one of these formats that can be rasterized for use on a computer display or printer. An image file format may store data in uncompressed, compressed, or vector formats. Once rasterized (making a matrix of intensity vaues of pixel positions), an image becomes a grid of pixels, each of which has a number of bits to designate its color equal to the color depth of the device displaying it.
+
+The size of raster image files is positively correlated with the number of pixels in the image and the color depth (bits per pixel). Images can be compressed in various ways, however. A compression algorithm stores either an exact representation or an approximation of the original image in a smaller number of bytes that can be expanded back to its uncompressed form with a corresponding decompression algorithm. Images with the same number of pixels and color depth can have very different compressed file size. Considering exactly the same compression, number of pixels, and color depth for two images, different graphical complexity of the original images may also result in very different file sizes after compression due to the nature of compression algorithms. With some compression formats, images that are less complex may result in smaller compressed file sizes. This characteristic sometimes results in a smaller file size for some lossless formats than lossy formats. For example, graphically simple images (\textit{i.e.} images with large continuous regions like line art or animation sequences) may be losslessly compressed into a GIF (Graphics Interchange Format) or PNG (Portable Network Graphics) format and result in a smaller file size than a lossy JPEG (Joint Photographic Experts Group) format. With vector images the file size increases only with the addition of more vectors.
+
+There are two types of image file compression algorithms: lossless and lossy.
+\textbf{Lossless compression} algorithms reduce file size while preserving a perfect copy of the original uncompressed image. Lossless compression generally, but not always, results in larger files than lossy compression. Lossless compression should be used to avoid accumulating stages of re-compression when editing images.
+\textbf{Lossy compression} algorithms preserve a representation of the original uncompressed image that may appear to be a perfect copy, but it is not a perfect copy. Often lossy compression is able to achieve smaller file sizes than lossless compression. Most lossy compression algorithms allow for variable compression that trades image quality for file size.
+
+\section{BlockChain}
+\label{sec:blockchain}
+\input{./doc_src/blockchain.tex}
+
+\section{Machine Learning}
+\label{sec:mlearning}
+\input{./doc_src/ml.tex}
+
+\section{Security}
+\label{sec:security}
+In this thesis project data integrity is of paramount importance. In order to be able to trust the data stored within the blockchain, a reliable secure connection is created between the application running on cleent's device and the computer that is computing the blockchain. User side application collects the data and creates the consecutive transaction which is to be sent between the device and the server where the blockchain computations are done, therefore it is impossible for a third party to know what the plaintext representation of the image is.
+As a result encryption of this transaction might be of less importance. However, it is crucial for the system to know that the integrity of the hash is intact. The image captured and stored at a device can later be verified as to what is received by another device by using the blockchain.
+An HTTP connection is used between the device and the server. The HTTP connection will in future implementation be replaced with a HTTPS connection to secure the communication.
+
+\begin{figure}
+\begin{center}
+\includegraphics[width=\textwidth]{./img_src/client_server.png}
+\end{center}
+\label{fig_connClientServer}
+\caption{A secure connection between Client and Server}
+\end{figure}
+
+\section{Client Side}
+\label{sec:client}
+A client may have a smartphone (of the brand Android, iPhone) or a computer (laptop or desktop). All of these devices comes with a default web-browsing tool like Google Chrome, Microsoft Edge, Mozilla Firefox or Mac Safari etc. All else a client needs an active reliable internet connection to communicate with sever. Moreover the miners have to have computers with better computation power. With the advancement of web programming languages with lots of APIs now it is very easy to capture an image or handle a local file and pass the data to the peer-to-peer network.
+
+\subsection{JavaScript}
+In this thesis, basic js is used as the run-time environment together with the inbuilt JS library installed on the browser. We are trying to use Node.js (also along with our code) that runs there servers, i.e., the consensus server. Note that all three servers run within the node.js environment on the computer hosting the web server and blockchain. JavaScript is the front end development language which realizes the functionality of the web page. JavaScript works together with PHP (HTML in it) and CSS in order to deliver a nice looking functional web page.
+
+\section{Server Side}
+\label{sec:server}
+\subsubsection{PHP Server}
+The Server side is made of PHP (HTML-5). In order to easy communicate with the blockchain from both the client device and the server running the verification client PHP APIs used over the HTTP protocol, usually to the server's TCP port 80. An apache server is basically a web server architecture which enables clients to make a request of servers. The HTTP protocol builds upon a request/response relationship between a client and a server and in this case used within the LAMPP architecture. In HTTP a string is sent to a specific port on the server with a specific method predefined by the HTTP standard. The most common methods are: GET, HEAD, POST, and PUT. The POST method is used by both the Android device and the web client of this thesis project to give both the ability to add and via the reply to this POST request to get information from the server. The communication between JS and PHP is done with XML-HTTP request with JSON byte stream. There is every type of handwriten PHP code to handle any type of request to Server.
+\subsubsection{POST Method}
+The POST method is a standard method in the HTTP protocol and gives the user the ability to add and receive data from the server. A HTTP transaction session is established through a TCP connection to a specific port on the server. After the TCP connection is established, of plain text HTTP message is sent to the other who either confirms the transaction or responds with an error message. It is in the body of this message that the response to the sender will be sent. Within the scope of this thesis the response will either be a boolean variable showing a successful transmission or a string of hashes requested from the blockchain.
+\subsubsection{HTTPS}
+Hypertext Transfer Protocol Secure (HTTPS) is an encrypted version of the HTTP protocol. HTTPS is usually used for sensitive information such as banking, private information, or classified information. HTTPS usually uses port 443 rather than HTTP port 80. In order for a user to be able to trust that a server is who it says that it issigned, third party certificates are used, usually in conjuction with the use of the Secure Socket Layer (SSL) as a secure transport protocol. A third party provides the server with a signed certificate which the user of the service verifies. Now that the user has verified the identity of the client and the server has verified the identity of the client - and encryption between the two parties may be set up. The security depends on that the certification chain work, that the user knows which server to use and that the user (client) notices when the certificate is incorrect or missing. Furthermore, in order to provide a high level of security the keys and the algorithms used need to be strong.
+
+\section{Related Works}
+\label{sec:prevWorks}
+\subsection{Old possible works}
+The process of image integrity checking is old job and many algorithms have been made. The following is the overview of them.
+\begin{enumerate}
+\item Store the real images in some database. Match the testing image with the existing one bit by bit.
+\item Like in previous case, store it and check the new one's hash with the existing one's hash.
+\item Searching the image in different databases using object detection and context similarity.
+\item Every digital image is created in an electronic device which is having some unique property or signature in the world. The softwares that has created the image are designed in such a way that they put the digital signature in the metadata field of the image, let's say EXIF data for JPEG images. Any software that knows the byte signatures can detect the random image is original or not by checking the signature and named context that lies inside of the image file.
+\item By checking the image context with reality or possiblity, some images can be checked.
+\item An expert or hacker not only seeks for the context or visual similarity, but an expert knows that secret figures (WaterMarking) secret messages (Steganography) can be embedded in the image file, because the main image is a 2d matrix of intensity values (list of integers for BnW, RGBA, CMYK, or other) at different pixel positions.
+\item The modern approach is to use deep neural network that learns and tries to detect image integrity in about 90\% efficiency and accuracy.
+\item Image Forensics uses about all of the previous ones.
+\end{enumerate}
+
+\subsection{Related Work}
+This section presents related work done both in the academic world and the industry.
+\subsubsection{Academic}
+Three different academic papers have been identified as relevant to this research. The following subsections highlight their main points and relevance to this thesis project.
+\paragraph{Timestamping video footage in traffic incidents}
+In ~\cite{gkb_bitcoin} Gipp, Krosti, and, Breitinger investigated the use of the Bitcoin network to timestamp a video feed from a smartphone camera placed in a car in the event of an accident.
+\paragraph{Trusted Timestamping}
+With regards to trusted timestamping two reports were identified: \q{Trusted Timestamping} ~\cite{gmg_bitcoin} and \q{Commitcoin} ~\cite{ce_commitcoin}. Both solutions leverage the time stamp made using the Bitcoin protocol when creating a transaction together with the carbon dating nature of the blockchain (i.e., one can tell the rough date of an entry by looking at the sequence of time stamps). These two solutions are slightly different in terms of their execution, but the basic theory of using the existing Bitcoin blockchain is the same.
+\paragraph{Forensics Investigations of Multimedia Data}
+In ~\cite{pt_forensics}, R. Poisel and S. Tjoa review the latest trends in forensic investigations of multimedia data, i.e. images, videos, and audio files. They describe different methods for determining what has been done to images and expose fabrications down to which details within a picture have been tampered with.
+\paragraph{Digital Watermarking}
+I. Echizen, et al. ~\cite{esytth_watermark} insert digital watermarks into video files to detect data tampering. They begin by breaking a video file into its composonents: the video, the audio, the timecodes, and the eader. The header is used together with the timecodes to separately watermark the audio and video.
+\subsubsection{Industrial}
+Three different industry solutions have been identified as being relevant. The following subsections highlight their main points and relevance to this thesis project.
+\paragraph{Nexan - Assureon Archive Storage}
+In Assureon Archive Storage ~\cite{n_assureon} fingerprints are created from the data in order to prove the integrity of files within a data archive system. The original files are stored on at least two different disks or at two different geographical locations.
+\paragraph{Enigio - time:beat}
+The product series \q{time:beat} ~\cite{asa_enigio} includes: time:shot, time:stamp, time:grab, and time:mail: by Enigio. It uses to archive time stamped fingerprints of integrity sensitive materials: email, pictures, documents, and websites in a permissioned blockchain controlled and owned by Enigio.
+\paragraph{Ascribe}
+Ascribe ~\cite{h_intellect} helps artists to create a digital copy of their work and time-stamp it in the Bitcoin blockchain. When a file is uploaded, Ascribe creates a digital certificate which can be traded, tracked, or loaned via the blockchain using SPOOL ~\cite{dt_spool}.
+
+\subsection{Curent Works}:
+\begin{enumerate}
+\item There are plenty of image storing and searching by image in the websites. In the list \href{https://images.google.com/}{Google Image}, \href{https://www.yandex.com/images/}{Yandex Images} they use the image searching by name, context.
+\item Some of them uses object detection \href{https://images.google.com/}{Google Images}, \href{https://www.imageidentify.com/}{Wolfram Images}.
+\item Some website programs use reverse image search like \href{https://images.google.com/}{Google Images}, \href{https://tineye.com/}{Reverse Image Search}.
+\item There are plenty of softwares like the photo eding softwares itself like Photoshop, GNU Image Manipulation Program, and other editors.
+\item In ~\cite{img_cnn} they used CNN for image comparing and many other that can be mentioned for well known face recognition problem.
+\item In ~\cite{adam_fabian} they used a mechanism for video integrity analysis.
+\end{enumerate}
+
+\section{Summary}
+\label{sec:summary}
+The different parts and aspects of the proof of concept prototype were broken down and analyzed. From the smallest components of the blockchain consensus algorithms, to which existing blockchain platform should be utilized. It also talked about the ways of communication between server and client.

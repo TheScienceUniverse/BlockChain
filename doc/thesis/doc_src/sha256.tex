@@ -1,0 +1,131 @@
+\subsection{Introduction}
+SHA-256 (Secure Hash Algorithm) comes under 6 member group of SHA-2. SHA-2 (Secure Hash Algorithm 2) is a set of cryptographic hash functions designed by the United States National Security Agency (NSA). They are built using the Merkle-Damgård structure, from a one-way compression function itself built using the Davies-Meyer structure from a (classified) specialized block cipher.
+
+SHA-2 includes significant changes from its predecessor, SHA-1. The SHA-2 family consists of six hash functions with digests (hash values) that are 224, 256, 384 or 512 bits: SHA-224, SHA-256, SHA-384, SHA-512, SHA-512/224, SHA-512/256.
+
+SHA-256 and SHA-512 are novel hash functions computed with 32-bit and 64-bit words, respectively. They use different shift amounts and additive constants, but their structures are otherwise virtually identical, differing only in the number of rounds. SHA-224 and SHA-384 are truncated versions of SHA-256 and SHA-512 respectively, computed with different initial values. SHA-512/224 and SHA-512/256 are also truncated versions of SHA-512, but the initial values are generated using the method described in Federal Information Processing Standards (FIPS) PUB 180-4. SHA-2 was published in 2001 by the National Institute of Standards and Technology (NIST) a U.S. federal standard (FIPS). The SHA-2 family of algorithms are patented in US patent 6829355. The United States has released the patent under a royalty-free license.
+
+\subsection{Property}
+SHA-256 is one of the successor hash functions to SHA-1 (collectively referred to as SHA-2), and is one of the strongest hash functions available. SHA-256 is not much more complex to code than SHA-1, and has not yet been compromised in any way. The 256-bit key makes it a good partner-function for AES. It is defined in the NIST (National Institute of Standards and Technology) standard 'FIPS 180-4'. NIST also provide a number of test vectors to verify correctness of implementation.
+
+SHA-256 takes message sige of bit-length a multiple of 512 bits and returns a hash of 256 bits. The message have to be pre-processed before sending it to main hash function. The hash function's job is to take 512 bit input and return 256 bit output.
+
+The message is divided into n blocks of 512 bits. No matter what message length is a 1 and enough 0's are appended to it along with 64 bit message length in the last block. Then one by one the n or n+1 blocks are sent for hashing or changing the default 8 digest values (each words are of 32 bits).
+
+\subsection{Algorithm}
+
+The pseudocode for the implementation in JS is as follows, \\
+
+Note 1: All variables are 32 bit unsigned integers and addition is calculated modulo 232 \\
+
+Note 2: For each round, there is one round constant k[i] and one entry in the message schedule array w[i], $0 \leq i \leq 63$ \\
+
+
+Note 3: The compression function uses 8 working variables, a through h \\
+
+Note 4: Big-endian convention is used when expressing the constants in this pseudocode, and when parsing message block data from bytes to words, for example, the first word of the input message "abc" after padding is 0x61626380 \\
+
+\subsubsection{Initialize hash values}
+(first 32 bits of the fractional parts of the square roots of the first 8 primes 2..19): \\
+\textit{
+h0 := 0x6a09e667 \\
+h1 := 0xbb67ae85 \\
+h2 := 0x3c6ef372 \\
+h3 := 0xa54ff53a \\
+h4 := 0x510e527f \\
+h5 := 0x9b05688c \\
+h6 := 0x1f83d9ab \\
+h7 := 0x5be0cd19 \\
+}
+\subsubsection{Initialize array of round constants}
+(first 32 bits of the fractional parts of the cube roots of the first 64 primes 2..311):
+\textit{
+k[0..63] := \{ \\
+\algoTab 0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5, \\
+\algoTab 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe, 0x9bdc06a7, 0xc19bf174, \\
+\algoTab 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f, 0x4a7484aa, 0x5cb0a9dc, 0x76f988da, \\
+\algoTab 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7, 0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, \\
+\algoTab 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc, 0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, \\
+\algoTab 0xa2bfe8a1, 0xa81a664b, 0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, \\
+\algoTab 0x19a4c116, 0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3, \\
+\algoTab 0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7, 0xc67178f2 \\
+\}
+}
+
+\subsubsection{Pre-processing (Padding)}
+begin with the original message of length L bits\\
+append a single '1' bit \\
+
+append K '0' bits, where K is the minimum number $\geq$ 0 such that L + 1 + K + 64 is a multiple of 512
+$$ (L + 1 + K + 64) = 512 \times $$
+
+append L as a 64-bit big-endian integer, making the total post-processed length a multiple of 512 bits
+
+\subsubsection{Process the message in successive 512-bit chunks}
+break message into 512-bit chunks \\
+\textbf{for each chunk} \\
+\algoTab create a 64-entry message schedule array w[0..63] of 32-bit words \\
+\algoTab (The initial values in w[0..63] don't matter, so many implementations zero them here) \\
+\algoTab copy chunk into first 16 words w[0..15] of the message schedule array \\
+\algoTab Extend the first 16 words into the remaining 48 words w[16..63] of the message schedule array: \\
+\algoTab \textbf{for i from 16 to 63} \\
+\textit{
+\algoTab \algoTab s0 := (w[i-15] rightrotate  7) xor (w[i-15] rightrotate 18) xor (w[i-15] rightshift  3) \\
+\algoTab \algoTab s1 := (w[i- 2] rightrotate 17) xor (w[i- 2] rightrotate 19) xor (w[i- 2] rightshift 10) \\
+\algoTab \algoTab w[i] := w[i-16] + s0 + w[i-7] + s1 \\
+\algoTab \textbf{Initialize working variables to current hash value:} \\
+\algoTab a := h0 \\
+\algoTab b := h1 \\
+\algoTab c := h2 \\
+\algoTab d := h3 \\
+\algoTab e := h4 \\
+\algoTab f := h5 \\
+\algoTab g := h6 \\
+\algoTab h := h7 \\
+}
+\algoTab \subsubsection{Compression function main loop:}
+\algoTab \textbf{for i from 0 to 63} \\
+\textit{
+\algoTab \algoTab S1 (Sigmoid-1) := (e rightrotate 6) xor (e rightrotate 11) xor (e rightrotate 25) \\
+\algoTab \algoTab ch (Choice) := (e and f) xor ((not e) and g) \\
+\algoTab \algoTab temp1 (Sum) := h + S1 + ch + k[i] + w[i] \\
+\algoTab \algoTab S0 (Sigmoid-0) := (a rightrotate 2) xor (a rightrotate 13) xor (a rightrotate 22) \\
+\algoTab \algoTab maj (Major) := (a and b) xor (a and c) xor (b and c) \\
+\algoTab \algoTab temp2 (Sum) := S0 + maj \\
+}
+\algoTab \algoTab \textbf{Update the middle-man values} \\
+\textit{
+\algoTab \algoTab h := g \\
+\algoTab \algoTab g := f \\
+\algoTab \algoTab f := e \\
+\algoTab \algoTab e := d + temp1 \\
+\algoTab \algoTab d := c \\
+\algoTab \algoTab c := b \\
+\algoTab \algoTab b := a \\
+\algoTab \algoTab a := temp1 + temp2 \\
+\algoTab \subsubsection{Add the compressed chunk to the current hash value}
+\algoTab h0 := h0 + a \\
+\algoTab h1 := h1 + b \\
+\algoTab h2 := h2 + c \\
+\algoTab h3 := h3 + d \\
+\algoTab h4 := h4 + e \\
+\algoTab h5 := h5 + f \\
+\algoTab h6 := h6 + g \\
+\algoTab h7 := h7 + h \\
+}
+\textbf{Get another chunk and calculate again}
+
+\subsubsection{Produce the final hash value (big-endian)}
+\textit{digest := hash := h0 append h1 append h2 append h3 append h4 append h5 append h6 append h7} \\
+
+The computation of the ch and maj values can be optimized the same way as described for SHA-1. \\
+
+\subsection{Application}
+The SHA-2 hash function is implemented in some widely used security applications and protocols, including TLS and SSL, PGP, SSH, S/MIME, and IPsec.
+
+SHA-256 partakes in the process of authenticating Debian software packagesand in the DKIM message signing standard; SHA-512 is part of a system to authenticate archival video from the International Criminal Tribunal of the Rwandan genocide. SHA-256 and SHA-512 are proposed for use in DNSSEC.  Unix and Linux vendors are moving to using 256- and 512-bit SHA-2 for secure password hashing.
+
+Several cryptocurrencies like Bitcoin use SHA-256 for verifying transactions and calculating proof of work or proof of stake. The rise of ASIC SHA-2 accelerator chips has led to the use of scrypt-based proof-of-work schemes.
+
+\subsection{Citing}
+A good discussion is given here ~\cite{wiki_sha2}. And a good implementation is found here ~\cite{movable_sha256}

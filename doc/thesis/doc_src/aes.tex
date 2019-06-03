@@ -1,0 +1,195 @@
+\subsection{Introduction}
+The AES (Advanced Encryption Standard), also known by its original name Rijndael  is a specification for the encryption of electronic data established by the U.S. National Institute of Standards and Technology (NIST) in 2001. AES is a subset of the Rijndael block cipher developed by two Belgian cryptographers, Vincent Rijmen and Joan Daemen, who submitted a proposal to NIST during the AES selection process. Rijndael is a family of ciphers with different key and block sizes.
+
+\subsection{Properties}
+It is one of the symmetric key block cipher technique \textit{i.e.} same key is used to encrypt an decrypt. It takes 128 bit message block at a time and 128 bit (or 192 bit or 256 bit) key block.
+
+AES is based on a design principle known as a substitution-permutation network, and is efficient in both software and hardware. Unlike its predecessor DES, AES does not use a Feistel network. AES operates on a $4 \times 4$ column-major order array of bytes (1 byte = 8 bits), termed the state. Most AES calculations are done in a particular finite field.
+
+For instance, if there are 16 bytes these bytes are represented as this two-dimensional array (state matrix) \\
+$$
+\begin{bmatrix}
+b_0 && b_4 && b_8 && b_C \\
+b_1 && b_5 && b_9 && b_D \\
+b_2 && b_6 && b_A && b_E \\
+b_3 && b_7 && b_B && b_F
+\end{bmatrix}
+$$
+
+The key size used for an AES cipher specifies the number of transformation rounds that convert the input, called the plaintext, into the final output, called the ciphertext. The number of rounds are as follows:
+\begin{itemize}
+\item 10 rounds for 128-bit keys.
+\item 12 rounds for 192-bit keys.
+\item 14 rounds for 256-bit keys.
+\end{itemize}
+
+Each round consists of several processing steps, including one that depends on the encryption key itself. A set of reverse rounds are applied to transform ciphertext back into the original plaintext using the same encryption key.
+
+All the calculation of AES can be calculated using either Galois Field $GF(2^8)$ and Euclidean algebra (takes more time but less space) or pre-calculated table driven way (takes less time but more space).
+
+\subsection{Algorithm}
+\subsubsection{Message Division}
+Divide the message by 128 bits chunks of state matrices
+
+\subsubsection{Key Expansion}
+Round keys are derived from the cipher key using Rijndael's key schedule. AES requires a separate 128-bit round key block for each round plus one more.
+
+\subsubsection{Initial Step}
+For each message block: \\
+\algoTab $ K_{ini} \gets genRoundKey(0, K_{main}) $ \\
+\algoTab $ M_0 \gets addRoundKey(M_{main}, K_{ini}) $ \\
+
+\subsubsection{Rounds}
+\algoTab for each round $ 0 \leq i < (totalRounds - 1) $ :\\
+\algoTab \algoTab $ M_i \gets subBytes(M_i) $ \\
+\algoTab \algoTab $ M_i \gets shiftRows(M_i) $ \\
+\algoTab \algoTab $ M_i \gets mixColumns(M_i) $ \\
+\algoTab \algoTab $ K_i \gets genRoundKey(i, K_{main}) $ \\
+\algoTab \algoTab $ M_i \gets addRoundKey(M_i, K_i) $ \\
+
+\subsubsection{Final Step}
+It is $ i = (totalRounds - 1)^{th} $ round;\\ No column mixing here or it will get back close to original message block. \\
+\algoTab \algoTab $ M_i \gets subBytes(M_i) $ \\
+\algoTab \algoTab $ M_i \gets shiftRows(M_i) $ \\
+\algoTab \algoTab $ K_{fin} \gets genRoundKey(i, K_{main}) $ \\
+\algoTab \algoTab $ S_{fin} \gets addRoundKey(M_i, K_{fin}) $ \\
+
+\subsubsection{Used Functions}
+\textbf{subBytes(state) :: state} \\
+In the SubBytes step, each byte in the state array is replaced with a SubByte $S(a_{i,j})$ using an 8-bit substitution box. This operation provides the \textit{non-linearity} in the cipher. The S-box used is derived from the multiplicative inverse over $GF(2^8)$, known to have good non-linearity properties. To avoid attacks based on simple algebraic properties, the S-box is constructed by combining the inverse function with an invertible affine transformation. The S-box is also chosen to avoid any fixed points (and so is a derangement), i.e. $ S(b_{i, j}) \neq b_{i, j} $ and also any opposite fixed points, i.e. $ S(b_{i, j}) \oplus b_{i, j} \neq FF_{16} $. While performing the decryption, the InvSubBytes step (the inverse of SubBytes) is used, which requires first taking the inverse of the affine transformation and then finding the multiplicative inverse.
+Returns:
+$$
+\begin{bmatrix}
+S(b_0) && S(b_4) && S(b_8) && S(b_C) \\
+S(b_1) && S(b_5) && S(b_9) && S(b_D) \\
+S(b_2) && S(b_6) && S(b_A) && S(b_E) \\
+S(b_3) && S(b_7) && S(b_B) && S(b_F)
+\end{bmatrix}
+$$
+\textbf{shiftRows(state) :: state} \\
+The ShiftRows step operates on the rows of the state; it cyclically left shifts the bytes in each row by a certain offset which is equal to Zero initiated row number \textit{i.e.} in the row number set \{0, 1, 2, 3\}. It provides \textit{shuffling} to avoid the columns being encrypted independently.
+Returns:
+$$
+\begin{bmatrix}
+b_0 && b_4 && b_8 && b_C \\
+b_5 && b_9 && b_D && b_1 \\
+b_A && b_E && b_2 && b_6 \\
+b_F && b_3 && b_7 && b_B
+\end{bmatrix}
+$$
+\textbf{mixColumns(state) :: state} \\
+In the MixColumns step, the four bytes of each column of the state are combined using an invertible linear transformation. The MixColumns function takes four bytes as input and outputs four bytes, where each input byte affects all four output bytes. Together with ShiftRows, MixColumns provides diffusion in the cipher. 
+During this operation, each column is transformed using a fixed matrix (matrix left-multiplied by column gives new value of column in the state):
+Returns:
+$$
+\begin{bmatrix}
+FF_{16} && FF_{16} && FF_{16} && FF_{16} \\
+FF_{16} && FF_{16} && FF_{16} && FF_{16} \\
+FF_{16} && FF_{16} && FF_{16} && FF_{16} \\
+FF_{16} && FF_{16} && FF_{16} && FF_{16}
+\end{bmatrix}
+\oplus
+\begin{bmatrix}
+b_0 && b_4 && b_8 && b_C \\
+b_5 && b_9 && b_D && b_1 \\
+b_A && b_E && b_2 && b_6 \\
+b_F && b_3 && b_7 && b_B
+\end{bmatrix}
+\times
+\begin{bmatrix}
+2 && 3 && 1 && 1 \\
+1 && 2 && 3 && 1 \\
+1 && 1 && 2 && 3 \\
+3 && 1 && 1 && 2
+\end{bmatrix}
+$$
+\textbf{genRoundKey(round, state) :: state} \\
+AES (Rijndael) uses a key schedule to expand a short key into a number of separate round keys. This is known as the Rijndael key schedule. The three AES variants have a different number of rounds. Each variant requires a separate 128-bit round key for each round plus one more. The key schedule produces the needed round keys from the initial key.
+
+Each round has a round constant $ rcon_i $ which is calculated by,
+$$
+rcon_i =
+\begin{bmatrix}
+rc_i && 00_{16} && 00_{16} && 00_{16}
+\end{bmatrix}
+$$
+where,
+$$
+rc_i =
+\begin{cases}
+1, & \text{if} (i = 1) \\
+2 \times rc_{i-1}, & \text{if} (i > 1) \text{and} (rc_{i-1} < 80_{16}) \\
+(2 \times rc_{i-1}) \oplus 1B_{16}, & \text{if} (i > 1) \text{and} (rc_{i-1} > 80_{16}) 
+\end{cases}
+$$
+
+Two main functions used are,
+$$
+RotWord(
+\begin{bmatrix}
+b_0 && b_1 && b_2 && b_3
+\end{bmatrix}
+) =
+\begin{bmatrix}
+b_1 && b_2 && b_3 && b_0
+\end{bmatrix}
+$$
+and
+$$
+SubWord(
+\begin{bmatrix}
+b_0 && b_1 && b_2 && b_3
+\end{bmatrix}
+) =
+\begin{bmatrix}
+S(b_1) && S(b_2) && S(b_3) && S(b_0)
+\end{bmatrix}
+$$
+
+For each of $ 4 \times r + 1 $ rounds,
+$$
+W_i =
+\begin{cases}
+K_i, & \text{if} (i < n) \\
+W_{i-n} \oplus SubWord(RotWord(W_{i-1})) \oplus rcon_{i/n}, & \text{if} (i \geq n) and \text{and} (i \equiv 0 \mod n) \\
+W_{i-n} \oplus SubWord(W_{i-1}), & \text{if} (i \geq n) \text{, } (n > 6) and \text{and} (i \equiv 4 \mod n) \\
+W_{i-n} \oplus W_{i-1}, & \text{otherwise}
+\end{cases}
+$$
+
+\textbf{addRoundKey(state, state) :: state} \\
+In the AddRoundKey step, the subkey is combined with the state. For each round, a subkey is derived from the main key using Rijndael's key schedule; each subkey is the same size as the state. The subkey is added by combining each byte of the state with the corresponding byte of the subkey using bitwise XOR.
+Returns:
+$$
+\begin{bmatrix}
+m_0 && m_4 && m_8 && m_C \\
+m_5 && m_9 && m_D && m_1 \\
+m_A && m_E && m_2 && m_6 \\
+m_F && m_3 && m_7 && m_B
+\end{bmatrix}
+\oplus
+\begin{bmatrix}
+k_0 && k_4 && k_8 && k_C \\
+k_5 && k_9 && k_D && k_1 \\
+k_A && k_E && k_2 && k_6 \\
+k_F && k_3 && k_7 && k_B
+\end{bmatrix}
+$$
+
+\subsubsection{Message Generation}
+After calculating the cipher-text the bytes are converted to consecutive readable strings of characters.
+\subsubsection{Decryption}
+The decryption is the reverse processing with the ciphertext state blocks with the same key. The reverse operations for each functions are,
+\begin{itemize}
+\item $ rev(subBytes(state)) \implies invSubBytes(state)$
+\item $ rev(shiftRows(state)) \implies invShiftRows(state) or shiftRows(state, right) $
+\item $ rev(mixColumns(state)) \text{'s mixing matrix changes to it's inverse matrix} $
+\item $ rev(genRoundKey(round, state)) \implies genRoundKey(totalRound - round, state) $
+\item $ rev(addRoundKey(state, state)) \text{remains same as if} \{m \oplus k = c\} \text{then} \{c \oplus k = m\} $
+\end{itemize}
+
+\subsection{Application}
+AES is implemented in secure file transfer protocols like FTPS, HTTPS, SFTP, AS2, WebDAVS, and OFTP.
+
+\subsection{Citing}
+Well known real paper ~\cite{rijndael_aes} describes a lot along with we took help from wikipedia ~\cite{wiki_aes}.

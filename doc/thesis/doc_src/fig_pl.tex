@@ -1,0 +1,30 @@
+\begin{tikzpicture}[]
+\node(node1)[node] {node1};
+\node (pl1) [pl, left of=node1, xshift=-0.1cm] {};
+\node(node2)[node, right of=node1, xshift=5cm] {node2};
+\node (pl2) [pl, right of=node2, xshift=0.1cm] {};
+\node(node3)[node, below of=node1, yshift=-3cm] {node3};
+\node (pl3) [pl, left of=node3, xshift=-0.1cm] {};
+\node(node4)[node, below of=node2, yshift=-3cm] {node4};
+\node (pl4) [pl, right of=node4, xshift=0.1cm] {};
+\node(node5)[node, right of=node1, xshift=2cm,yshift=2cm] {node5};
+\node (pl5) [pl, above of=node5, yshift=0.3cm] {};
+\node(node6)[node, right of=node3, xshift=2cm,yshift=-2cm] {node6};
+\node (pl6) [pl, below of=node6, yshift=-0.3cm] {};
+
+\draw[<->, thick] (node1) -- (node2);
+\draw[<->, thick] (node1) -- (node3);
+\draw[<->, thick] (node1) -- (node4);
+\draw[<->, thick] (node1) -- (node5);
+\draw[<->, thick] (node1) -- (node6);
+\draw[<->, thick] (node2) -- (node3);
+\draw[<->, thick] (node2) -- (node4);
+\draw[<->, thick] (node2) -- (node5);
+\draw[<->, thick] (node2) -- (node6);
+\draw[<->, thick] (node3) -- (node4);
+\draw[<->, thick] (node3) -- (node5);
+\draw[<->, thick] (node3) -- (node6);
+\draw[<->, thick] (node4) -- (node5);
+\draw[<->, thick] (node4) -- (node6);
+\draw[<->, thick] (node5) -- (node6);
+\end{tikzpicture}

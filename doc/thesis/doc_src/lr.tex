@@ -1,0 +1,178 @@
+\subsection{Introduction}
+
+Linear regression is a statistical approach for modelling relationship between a dependent variable with a given set of independent variables.
+
+In order to provide a basic understanding of linear regression, we start with the most basic version of linear regression, i.e. Simple linear regression.
+
+\subsubsection{Simple Linear Regression}
+Simple linear regression is an approach for predicting a \textbf{response} using a \textbf{single feature}.
+
+It is assumed that the two variables are linearly related. Hence, we try to find a linear function that predicts the response value(y) as accurately as possible as a function of the feature or independent variable(x).
+
+Now, the task is to find a line which fits best in above scatter plot so that we can predict the response for any new feature values. (i.e a value of x not present in dataset)
+
+This line is called \textbf{Regression line}. This equation of regression line is represented as:
+
+\begin{equation}
+h(x_{i}) = \beta_{0} + \beta_{1}x_{i};
+\end{equation}
+
+Here, $\bullet$ represents the predicted response value for i-th observation.
+
+$\bullet$ b\_0 and b\_1 are regression coefficients and represent y-intercept and slope of regression line respectively.
+
+To create our model, we must \q{learn} or estimate the values of regression coefficients b\_0 and b\_1. And once we've estimated these coefficients, we can use the model to predict responses!
+For this we use Least Squared Technique.
+
+\subsubsection{Least Square Technique}.
+\begin{equation}
+y_{i}=\beta_{0} + \beta_{1} \times x_{i} + \epsilon_{i} = h(x_{i+}) + \epsilon_{i}
+\implies \epsilon_{i} = y_{i} - h(x_{i});
+\end{equation}
+
+Here, e\_i is residual error in ith observation.  We try to  minimize the total residual error. We define the squared error or cost function, J as:
+\begin{equation}
+J(\beta_{0},\beta_{1}) = \frac{1}{2n} \sum_{i=1}^{n} \epsilon_{i}^2;
+\end{equation}
+
+and our task is to find the value of b\_0 and b\_1 for which J(b\_0, b\_1) is minimum! Without going into the mathematical details, we present the result here:
+
+\begin{equation}
+\beta_{1} = \frac{SS_{xy}}{SS_{xx}};
+\end{equation}
+
+\begin{equation}
+\beta_{0} =  \bar{y} - \beta_{1}\bar{x};
+\end{equation}
+
+where SS\_xy is the sum of cross-deviations of y and x:
+
+\begin{equation}
+SS_{xy} = \sum_{i=1}^{n} (x-\bar{x})(y-\bar{y})= \sum_{i=1}^{n} y_{i}x_{i} -n\bar{x}\bar{y};
+\end{equation}
+
+and SS\_xx is the sum of squared deviations of x:
+
+\begin{equation}
+SS_{xx} = \sum_{i=0}^{n}(x_{i}-\bar{x})^2= \sum_{i=0}^{n} x_{i}^2 - n(\bar{x})^2;
+\end{equation}
+
+\subsubsection{Multiple Linaer Regression}
+Multiple linear regression attempts to model the relationship between two or more features and a response by fitting a linear equation to observed data. Clearly, it is nothing but an extension of Simple linear regression. Consider a dataset with p features(or independent variables) and one response(or dependent variable). Also, the dataset contains n rows/observations. 
+
+X(features matrix) = a matrix of size nXp where x\_{i} denotes the values of jth feautres for ith observation.
+ 
+So,
+$$
+\begin{pmatrix}
+x_{1,1} & x_{1,2} & \cdots & x_{1,n} \\
+x_{2,1} & x_{2,2} & \cdots & x_{2,n} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+x_{m,1} & x_{m,2} & \cdots & x_{m,n} 
+\end{pmatrix}
+$$
+
+and
+
+y = $
+\begin{pmatrix}
+y_{1} \\ y_{2} \\ y_{3} \\
+\vdots y_{n}
+\end{pmatrix}
+$
+
+The regression line for p is represented as:
+
+\begin{equation}
+h(x_{i}) = \beta_{0} + \beta_{1}x_{i1}+\beta_{2}x_{i2}+ ... +\beta_{p}x_{ip};
+\end{equation}
+
+
+where h(x\_i) is predicted response value for ith observation and b\_0,b\_1, ...,b\_p are the regression coefficients. 
+Also, we can write:
+
+\begin{equation}
+y_{i} = \beta_{0} + \beta_{1}x_{i1} + \beta_{2}x_{i2} + ... +\beta_{p}x_{ip} + \epsilon_{i};
+\end{equation}
+
+or
+
+\begin{equation}
+y_{i} = h(x_{i}) + \epsilon_{i} \implies \epsilon_{i} = y_{i} - h(x_{i});
+\end{equation}
+
+
+We can generalize our linear model a little bit more by representing feature matrix X as:
+
+$\begin{pmatrix}
+1 & x_{1,1} & x_{1,2} & \cdots & x_{1,p} \\
+1 & x_{2,1} & x_{2,2} & \cdots & x_{2,p} \\
+\vdots  & \vdots  & \ddots & \vdots  \\
+1 & x_{n,1} & x_{n,2} & \cdots x a_{n,p} 
+\end{pmatrix}$
+
+
+So now, the linear model can be expressed in terms of matrices as:
+ 
+$$
+y = X\beta + \epsilon
+$$
+
+where,\newline
+
+$$\beta = 
+\begin{bmatrix} 
+\beta_0\\  \beta_1\\  .\\  .\\  \beta_p 
+\end{bmatrix}$$ 
+
+and
+
+$$\epsilon = 
+\begin{bmatrix} 
+\varepsilon_1\\  \varepsilon_2\\  .\\  .\\  \varepsilon_n 
+\end{bmatrix}
+$$ 
+
+Now, we determine estimate of b, i.e. b' using Least Squares method.
+
+As already explained, Least Squares method tends to determine b for which total residual error is minimized.
+
+We present the result directly here:
+$$\hat{\beta} = (XX')^{-1} {X}'y $$
+
+where 'represents the transpose of the matrix while -1 represents the matrix inverse.
+
+Knowing the least square estimates, b', the multiple linear regression model can now be estimated as:
+$$\hat{y} = X\hat{\beta}$$
+
+where $\hat{y}$ is estimated response vector.
+
+\subsubsection{Assumptions}
+the basic assumptions that a linear regression model makes regarding a dataset on which it is applied:
+
+\paragraph{Linear relationship:}
+Relationship between response and feature variables should be linear. The linearity assumption can be tested using scatter plots. As shown below, 1st figure represents linearly related variables where as variables in 2nd and 3rd figure are most likely non-linear. So, 1st figure will give better predictions using linear regression.
+
+\paragraph{Little or no multi-collinearity:}
+It is assumed that there is little or no multicollinearity in the data. Multicollinearity occurs when the features (or independent variables) are not independent from each other.
+
+\paragraph{Little or no auto-correlation:}
+Another assumption is that there is little or no autocorrelation in the data. Autocorrelation occurs when the residual errors are not independent from each other. You can refer here for more insight into this topic.
+
+\paragraph{Homoscedasticity:}
+Homoscedasticity describes a situation in which the error term (that is, the \q{noise} or random disturbance in the relationship between the independent variables and the dependent variable) is the same across all values of the independent variables. As shown below, figure 1 has homoscedasticity while figure 2 has heteroscedasticity.
+
+\subsection{Application}
+Some of the application of linear regression model are :
+
+\begin{enumerate}
+\item Trend lines: A trend line represents the variation in some quantitative data with passage of time (like GDP, oil prices, etc.). These trends usually follow a linear relationship. Hence, linear regression can be applied to predict future values. However, this method suffers from a lack of scientific validity in cases where other potential changes can affect the data.
+\item Economics: Linear regression is the predominant empirical tool in economics. For example, it is used to predict consumption spending, fixed investment spending, inventory investment, purchases of a country's exports, spending on imports, the demand to hold liquid assets, labor demand, and labor supply.
+\item Finance: Capital price asset model uses linear regression to analyze and quantify the systematic risks of an investment.
+\item Biology: Linear regression is used to model causal relationships between parameters in biological systems.
+\end{enumerate}
+
+\subsection{Citing}
+A well known implementation is given in \href{https://www.geeksforgeeks.org/linear-regression-python-implementation/}{Geeks-for-Geeks} and a well discussion is done at \href{https://en.wikipedia.org/wiki/Linear_regression}{Linear regression Wiki}.
+
+For our project we will use simple linear regression (with features the difference in the number of bits).
